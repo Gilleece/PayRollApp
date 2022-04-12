@@ -37,14 +37,13 @@ namespace PayRollApp
 
         private void editTourBtn_Click(object sender, EventArgs e)
         {
-             
+            tourEditSpecificView tourEditSpecificView = new tourEditSpecificView(selectedCell);
+            tourEditSpecificView.Show();
         }
 
         private void tourData_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            selectedCell = tourData.Rows[e.RowIndex].Cells[0].Value.ToString();
-            var confirmUpdate = MessageBox.Show(selectedCell,
-                                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            selectedCell = tourData.Rows[e.RowIndex].Cells[0].Value.ToString();            
         }
     }
 }

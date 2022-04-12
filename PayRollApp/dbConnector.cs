@@ -235,6 +235,44 @@ namespace PayRollApp
 
         }
 
+        public DataTable getSelectedTour(string tourID)
+        {
+            try
+            {
+                DataTable dtAccountDetails = new DataTable();
+                sqlconnConnection.Open();
+                string strQuery = @"SELECT * FROM tours where tourID = @tourID;";  // example of a Paramaterised SQL statement.
+                SQLiteCommand sqlcomCommand = new SQLiteCommand(strQuery, sqlconnConnection);
+                sqlcomCommand.Parameters.AddWithValue("@tourID", tourID);
+                SQLiteDataAdapter sqldatadptAdapter = new SQLiteDataAdapter(sqlcomCommand);  // local SQL data Adaptor
+
+
+                try
+                {
+                    sqldatadptAdapter.Fill(dtAccountDetails);
+                    return dtAccountDetails;
+                }
+                catch (Exception ex)
+                {
+                    // Exception will the "thrown"/Raised when there was a problem
+                    throw new Exception($"SELECT unsuccessful:\n{ex.Message}");
+                }
+                finally
+                {
+                    sqlconnConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // exception thrown for the whole method or function    
+                throw new Exception($"User(string):\n{ex.Message}");
+            }
+
+
+            sqlconnConnection.Close();
+
+        }
+
         public void updateDetails(string accNum, string name, string eircode, string pin)
         {
             try
