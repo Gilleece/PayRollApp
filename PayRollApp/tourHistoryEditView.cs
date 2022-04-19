@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace PayRollApp
 {
-    public partial class tourEditView : Form
+    public partial class tourHistoryEditView : Form
     {
 
         public dbConnector payrollDbConnection = new dbConnector(@"payroll.db");
 
         public string selectedCell = "1";
 
-        public tourEditView()
+        public tourHistoryEditView()
         {
             InitializeComponent();
             populateList();
@@ -30,26 +30,31 @@ namespace PayRollApp
 
         public void populateList()
         {
-            DataTable tourDataTable = payrollDbConnection.getAllTours();
-            tourData.DataSource = tourDataTable;
+            DataTable tourHistoryDataTable = payrollDbConnection.getAllTourHistory();
+            tourData.DataSource = tourHistoryDataTable;
             tourData.RowHeadersVisible = false;
         }
 
         private void editTourBtn_Click(object sender, EventArgs e)
         {
-            tourEditSpecificView tourEditSpecificView = new tourEditSpecificView(selectedCell, this);
-            tourEditSpecificView.Show();
+            tourHistoryEditSpecificView tourHistoryEditSpecificView = new tourHistoryEditSpecificView(selectedCell, this);
+            tourHistoryEditSpecificView.Show();
         }
 
         private void tourData_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            selectedCell = tourData.Rows[e.RowIndex].Cells[0].Value.ToString();            
+            selectedCell = tourData.Rows[e.RowIndex].Cells[0].Value.ToString();
+        }
+
+        private void tourData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            selectedCell = tourData.Rows[e.RowIndex].Cells[0].Value.ToString();
         }
 
         private void addTourBtn_Click(object sender, EventArgs e)
         {
-            addNewTour addNewTour = new addNewTour(this);
-            addNewTour.Show();
-        }
+            addNewTourHistory addNewTourHistory = new addNewTourHistory(this);
+            addNewTourHistory.Show();
+         }
     }
 }

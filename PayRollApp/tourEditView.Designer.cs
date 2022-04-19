@@ -31,7 +31,6 @@
             this.tourData = new System.Windows.Forms.DataGridView();
             this.editTourBtn = new System.Windows.Forms.Button();
             this.addTourBtn = new System.Windows.Forms.Button();
-            this.deleteTourBtn = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tourData)).BeginInit();
             this.SuspendLayout();
@@ -54,7 +53,7 @@
             // 
             this.editTourBtn.BackColor = System.Drawing.Color.MediumVioletRed;
             this.editTourBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.editTourBtn.Location = new System.Drawing.Point(89, 371);
+            this.editTourBtn.Location = new System.Drawing.Point(220, 371);
             this.editTourBtn.Name = "editTourBtn";
             this.editTourBtn.Size = new System.Drawing.Size(113, 46);
             this.editTourBtn.TabIndex = 8;
@@ -66,23 +65,13 @@
             // 
             this.addTourBtn.BackColor = System.Drawing.Color.MediumVioletRed;
             this.addTourBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addTourBtn.Location = new System.Drawing.Point(564, 371);
+            this.addTourBtn.Location = new System.Drawing.Point(464, 371);
             this.addTourBtn.Name = "addTourBtn";
             this.addTourBtn.Size = new System.Drawing.Size(113, 46);
             this.addTourBtn.TabIndex = 9;
             this.addTourBtn.Text = "Add New Tour";
             this.addTourBtn.UseVisualStyleBackColor = false;
-            // 
-            // deleteTourBtn
-            // 
-            this.deleteTourBtn.BackColor = System.Drawing.Color.MediumVioletRed;
-            this.deleteTourBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deleteTourBtn.Location = new System.Drawing.Point(323, 371);
-            this.deleteTourBtn.Name = "deleteTourBtn";
-            this.deleteTourBtn.Size = new System.Drawing.Size(113, 46);
-            this.deleteTourBtn.TabIndex = 10;
-            this.deleteTourBtn.Text = "Delete Selected Tour";
-            this.deleteTourBtn.UseVisualStyleBackColor = false;
+            this.addTourBtn.Click += new System.EventHandler(this.addTourBtn_Click);
             // 
             // Exit
             // 
@@ -103,7 +92,6 @@
             this.BackColor = System.Drawing.Color.MediumSlateBlue;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Exit);
-            this.Controls.Add(this.deleteTourBtn);
             this.Controls.Add(this.addTourBtn);
             this.Controls.Add(this.editTourBtn);
             this.Controls.Add(this.tourData);
@@ -119,7 +107,6 @@
         private System.Windows.Forms.DataGridView tourData;
         private System.Windows.Forms.Button editTourBtn;
         private System.Windows.Forms.Button addTourBtn;
-        private System.Windows.Forms.Button deleteTourBtn;
         private System.Windows.Forms.Button Exit;
     }
 }

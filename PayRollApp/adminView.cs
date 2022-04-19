@@ -27,5 +27,17 @@ namespace PayRollApp
             tourEditView tourEditView = new tourEditView();
             tourEditView.Show();
         }
+
+        private void editTourHistoryBtn_Click(object sender, EventArgs e)
+        {
+            tourHistoryEditView tourHistoryEditView = new tourHistoryEditView();
+            tourHistoryEditView.Show();
+        }
+
+        private void PayrollBtn_Click(object sender, EventArgs e)
+        {
+            payrollView payrollView = new payrollView();
+            payrollView.Show();
+        }
     }
 }

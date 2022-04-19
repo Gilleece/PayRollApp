@@ -79,6 +79,7 @@
             this.editTourHistoryBtn.TabIndex = 8;
             this.editTourHistoryBtn.Text = "Edit Tour History";
             this.editTourHistoryBtn.UseVisualStyleBackColor = false;
+            this.editTourHistoryBtn.Click += new System.EventHandler(this.editTourHistoryBtn_Click);
             // 
             // PayrollBtn
             // 
@@ -90,6 +91,7 @@
             this.PayrollBtn.TabIndex = 9;
             this.PayrollBtn.Text = "Payroll";
             this.PayrollBtn.UseVisualStyleBackColor = false;
+            this.PayrollBtn.Click += new System.EventHandler(this.PayrollBtn_Click);
             // 
             // Exit
             // 

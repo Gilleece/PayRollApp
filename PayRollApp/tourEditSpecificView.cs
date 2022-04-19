@@ -15,10 +15,13 @@ namespace PayRollApp
 
         public dbConnector payrollDbConnection = new dbConnector(@"payroll.db");
 
-        public tourEditSpecificView(string tourID)
+        tourEditView originalForm;
+
+        public tourEditSpecificView(string tourID, tourEditView tourEditView)
         {
             InitializeComponent();
             populateFields(tourID);
+            originalForm = tourEditView;
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -38,7 +41,11 @@ namespace PayRollApp
 
         private void updateBtn_Click(object sender, EventArgs e)
         {
-
+            payrollDbConnection.updateSelectedTour(tourIDBox.Text, priceBox.Text, tier1Box.Text, tier2Box.Text);
+            MessageBox.Show("Successfully updated!",
+                                         "Absolutely incredible.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            originalForm.populateList();
+            this.Close();
         }
     }
 }
