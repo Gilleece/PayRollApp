@@ -75,6 +75,51 @@ namespace PayRollApp
 
         }
 
+        public bool checkIfUserExists(string userID)
+        {
+            try
+            {
+                DataTable dtCount = new DataTable();
+                sqlconnConnection.Open();
+                string strQuery = @"SELECT COUNT() FROM users WHERE userID = @userID;";
+                SQLiteCommand sqlcomCommand = new SQLiteCommand(strQuery, sqlconnConnection);
+                sqlcomCommand.Parameters.AddWithValue("@userID", userID);
+                SQLiteDataAdapter sqldatadptAdapter = new SQLiteDataAdapter(sqlcomCommand);
+
+
+                try
+                {
+                    sqldatadptAdapter.Fill(dtCount);
+                    if (dtCount.Rows[0][0].ToString() == "1")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Exception will the "thrown"/Raised when there was a problem
+                    throw new Exception($"SELECT unsuccessful:\n{ex.Message}");
+                }
+                finally
+                {
+                    sqlconnConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // exception thrown for the whole method or function    
+                throw new Exception($"User(string):\n{ex.Message}");
+            }
+
+
+            sqlconnConnection.Close();
+
+        }
+
         public bool checkIfAdmin(string userID)
         {
             try
@@ -97,6 +142,107 @@ namespace PayRollApp
                     else
                     {
                         return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Exception will the "thrown"/Raised when there was a problem
+                    throw new Exception($"SELECT unsuccessful:\n{ex.Message}");
+                }
+                finally
+                {
+                    sqlconnConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // exception thrown for the whole method or function    
+                throw new Exception($"User(string):\n{ex.Message}");
+            }
+
+
+            sqlconnConnection.Close();
+
+        }
+
+        public string getName(string userID)
+        {
+            try
+            {
+                DataTable dtUser = new DataTable();
+                sqlconnConnection.Open();
+                string strQuery = @"SELECT * FROM users WHERE userID = @userID;";
+                SQLiteCommand sqlcomCommand = new SQLiteCommand(strQuery, sqlconnConnection);
+                sqlcomCommand.Parameters.AddWithValue("@userID", userID);
+                SQLiteDataAdapter sqldatadptAdapter = new SQLiteDataAdapter(sqlcomCommand);
+
+
+                try
+                {
+                    sqldatadptAdapter.Fill(dtUser);
+                    return dtUser.Rows[0][1].ToString();
+                }
+                catch (Exception ex)
+                {
+                    // Exception will the "thrown"/Raised when there was a problem
+                    throw new Exception($"SELECT unsuccessful:\n{ex.Message}");
+                }
+                finally
+                {
+                    sqlconnConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // exception thrown for the whole method or function    
+                throw new Exception($"User(string):\n{ex.Message}");
+            }
+
+
+            sqlconnConnection.Close();
+
+        }
+
+        public float getComission(string userID, string year, string month)
+        {
+            try
+            {
+                DataTable dtUser = new DataTable();
+                sqlconnConnection.Open();
+                string strQuery = @"SELECT users.userID, tier, pricePerPerson, attendance, tier1Commision, tier2Commision FROM users INNER JOIN tour_history ON users.userID=tour_history.userID INNER JOIN tours ON tour_history.tourID=tours.tourID WHERE users.userID=@userID AND month=@month AND year=@year";
+                SQLiteCommand sqlcomCommand = new SQLiteCommand(strQuery, sqlconnConnection);
+                sqlcomCommand.Parameters.AddWithValue("@userID", userID);
+                sqlcomCommand.Parameters.AddWithValue("@month", month);
+                sqlcomCommand.Parameters.AddWithValue("@year", year);
+                SQLiteDataAdapter sqldatadptAdapter = new SQLiteDataAdapter(sqlcomCommand);
+
+
+                try
+                {
+                    sqldatadptAdapter.Fill(dtUser);
+
+                    int count = dtUser.Rows.Count;
+                    float total = 0;
+
+                    if (count == 0)
+                    {
+                        return 0;
+                    }
+                    else if (dtUser.Rows[0][1].ToString() == "1")
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            total += ((float.Parse(dtUser.Rows[i][2].ToString()) / 100) * float.Parse(dtUser.Rows[i][4].ToString())) * float.Parse(dtUser.Rows[i][3].ToString());
+                        }
+                        return total;
+                    }
+                    else
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            total += ((float.Parse(dtUser.Rows[i][2].ToString()) / 100) * float.Parse(dtUser.Rows[i][5].ToString())) * float.Parse(dtUser.Rows[i][3].ToString());
+                        }
+                        return total;
                     }
                 }
                 catch (Exception ex)
@@ -521,6 +667,46 @@ namespace PayRollApp
             }
             catch (Exception ex)
             {
+                throw new Exception($"User(string):\n{ex.Message}");
+            }
+
+
+            sqlconnConnection.Close();
+
+        }
+
+        public DataTable getPayrollTours(string userID, string year, string month)
+        {
+            try
+            {
+                DataTable dtAccountDetails = new DataTable();
+                sqlconnConnection.Open();
+                string strQuery = @"SELECT * FROM tour_history where userID = @userID and year = @year and month = @month ;";  // example of a Paramaterised SQL statement.
+                SQLiteCommand sqlcomCommand = new SQLiteCommand(strQuery, sqlconnConnection);
+                sqlcomCommand.Parameters.AddWithValue("@userID", userID);
+                sqlcomCommand.Parameters.AddWithValue("@year", year);
+                sqlcomCommand.Parameters.AddWithValue("@month", month);
+                SQLiteDataAdapter sqldatadptAdapter = new SQLiteDataAdapter(sqlcomCommand);  // local SQL data Adaptor
+
+
+                try
+                {
+                    sqldatadptAdapter.Fill(dtAccountDetails);
+                    return dtAccountDetails;
+                }
+                catch (Exception ex)
+                {
+                    // Exception will the "thrown"/Raised when there was a problem
+                    throw new Exception($"SELECT unsuccessful:\n{ex.Message}");
+                }
+                finally
+                {
+                    sqlconnConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // exception thrown for the whole method or function    
                 throw new Exception($"User(string):\n{ex.Message}");
             }
 

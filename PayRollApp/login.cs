@@ -58,8 +58,12 @@ namespace PayRollApp
                 }
                 else
                 {
+                    guideView guideView = new guideView(userIDinput.Text);
                     MessageBox.Show("Successfully logged in as guide!",
                                          "Details Confirmed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    userIDinput.Text = "";
+                    passwordInput.Text = "";
+                    guideView.Show();
                 }
 
             }

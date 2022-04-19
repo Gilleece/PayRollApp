@@ -84,6 +84,18 @@
       <DependentUpon>adminView.cs</DependentUpon>
     </Compile>
     <Compile Include="dbConnector.cs" />
+    <Compile Include="generatedPayroll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="generatedPayroll.Designer.cs">
+      <DependentUpon>generatedPayroll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="guideView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="guideView.Designer.cs">
+      <DependentUpon>guideView.cs</DependentUpon>
+    </Compile>
     <Compile Include="login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +142,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="adminView.resx">
       <DependentUpon>adminView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="generatedPayroll.resx">
+      <DependentUpon>generatedPayroll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="guideView.resx">
+      <DependentUpon>guideView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="login.resx">
       <DependentUpon>login.cs</DependentUpon>

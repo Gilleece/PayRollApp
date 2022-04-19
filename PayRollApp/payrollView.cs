@@ -12,6 +12,9 @@ namespace PayRollApp
 {
     public partial class payrollView : Form
     {
+
+        public dbConnector payrollDbConnection = new dbConnector(@"payroll.db");
+
         public payrollView()
         {
             InitializeComponent();
@@ -24,8 +27,16 @@ namespace PayRollApp
 
         private void genBtn_Click(object sender, EventArgs e)
         {
-            generatedPayroll generatedPayroll = new generatedPayroll(userID.Value.ToString(), year.Value.ToString(), month.Value.ToString());
-            generatedPayroll.Show();
+            if (payrollDbConnection.checkIfUserExists(userID.Value.ToString()))
+            {
+                generatedPayroll generatedPayroll = new generatedPayroll(userID.Value.ToString(), year.Value.ToString(), month.Value.ToString());
+                generatedPayroll.Show();
+            }
+            else
+            {
+                MessageBox.Show("User doesn't exist.",
+                                             "Oh my.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
